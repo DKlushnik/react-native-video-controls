@@ -44,9 +44,7 @@ export default class VideoPlayer extends Component {
       // Video
       resizeMode: this.props.resizeMode,
       paused: this.props.paused,
-      // muted: this.props.muted,
       volume: this.props.volume,
-      rate: this.props.rate,
       // Controls
 
       isFullscreen:
@@ -690,15 +688,15 @@ export default class VideoPlayer extends Component {
   }
 
   /**
-    | -------------------------------------------------------
-    | React Component functions
-    | -------------------------------------------------------
-    |
-    | Here we're initializing our listeners and getting
-    | the component ready using the built-in React
-    | Component methods
-    |
-    */
+   | -------------------------------------------------------
+   | React Component functions
+   | -------------------------------------------------------
+   |
+   | Here we're initializing our listeners and getting
+   | the component ready using the built-in React
+   | Component methods
+   |
+   */
 
   /**
    * Before mounting, init our seekbar and volume bar
@@ -788,15 +786,22 @@ export default class VideoPlayer extends Component {
         this.setSeekerPosition(position);
         let state = this.state;
 
-        if (this.player.scrubbingTimeStep > 0 && !state.loading && !state.scrubbing) {
+        if (
+          this.player.scrubbingTimeStep > 0 &&
+          !state.loading &&
+          !state.scrubbing
+        ) {
           const time = this.calculateTimeFromSeekerPosition();
           const timeDifference = Math.abs(state.currentTime - time) * 1000;
 
-          if (time < state.duration && timeDifference >= this.player.scrubbingTimeStep) {
+          if (
+            time < state.duration &&
+            timeDifference >= this.player.scrubbingTimeStep
+          ) {
             state.scrubbing = true;
 
             this.setState(state);
-            setTimeout( () => {
+            setTimeout(() => {
               this.player.ref.seek(time, this.player.scrubbingTimeStep);
             }, 1);
           }
@@ -873,16 +878,16 @@ export default class VideoPlayer extends Component {
   }
 
   /**
-    | -------------------------------------------------------
-    | Rendering
-    | -------------------------------------------------------
-    |
-    | This section contains all of our render methods.
-    | In addition to the typical React render func
-    | we also have all the render methods for
-    | the controls.
-    |
-    */
+   | -------------------------------------------------------
+   | Rendering
+   | -------------------------------------------------------
+   |
+   | This section contains all of our render methods.
+   | In addition to the typical React render func
+   | we also have all the render methods for
+   | the controls.
+   |
+   */
 
   /**
    * Standard render control function that handles
@@ -1189,7 +1194,6 @@ export default class VideoPlayer extends Component {
             resizeMode={this.state.resizeMode}
             volume={this.state.volume}
             paused={this.state.paused}
-            rate={this.state.rate}
             onLoadStart={this.events.onLoadStart}
             onProgress={this.events.onProgress}
             onError={this.events.onError}
